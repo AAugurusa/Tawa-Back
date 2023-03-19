@@ -17,12 +17,28 @@ const getUser = async (req,res)=>{
         const { nickname } = req.params;
         const connection = await getConnection();
         const result = await connection.query("SELECT * FROM users WHERE nickname = ?", nickname);
-        res.json(result);
+        res,json(result);
+        res.status(201).json("Success");
     } catch(error){
-        res.status(500);//indica error en peticion al servidor por eso "500"
-        res.send(error.message);
+        res.status(501).json("Nickname not found");//indica error en peticion al servidor por eso "500"
     }  
 };
+
+const login = async (req,res)=>{
+    try{
+        const { nickname, password } = req.body;
+        const connection = await getConnection();
+        const result = await connection.query("SELECT * FROM users WHERE nickname = ? AND password = ?", [nickname, password]);
+        if(result.length == 0){
+            res.status(501).json("Nickname or password incorrect");
+        }else{    
+            res.status(201).json("Success");
+        }
+    } catch(error){
+        
+    }
+};
+
 
 const deleteUser = async (req,res)=>{
     try{ 
@@ -65,10 +81,9 @@ const addUser = async (req,res)=>{
         }
         const connection = await getConnection();
         const result = await connection.query("INSERT INTO users (nickname, password) VALUES (?,?)",[nickname, password]);
-        res.json("User added correctly mother foca");
+        res.status(201).json("Success");
     } catch(error){
-        res.status(500);//indica error en peticion al servidor por eso "500"
-        res.send(error.message);
+        res.status(502).json("Nickname already in use");//indica error en peticion al servidor por eso "500"
     }  
 };
 
@@ -78,5 +93,6 @@ export const methods = {
     getUser,
     deleteUser,
     updateUser,
+    login,
     addUser
 };
