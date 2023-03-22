@@ -1,4 +1,5 @@
 import {getConnection} from "../database/database";
+import { methods1 } from "./stats.controller";
 
 const getUsers = async (req,res)=>{
     try{
@@ -83,6 +84,7 @@ const addUser = async (req,res)=>{
         const result = await connection.query("INSERT INTO users (nickname, password) VALUES (?,?)",[nickname, password]);
         res.status(201).json("Success");
     } catch(error){
+        console.log(error);
         res.status(502).json("Nickname already in use");//indica error en peticion al servidor por eso "500"
     }  
 };

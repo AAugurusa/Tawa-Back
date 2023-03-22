@@ -5,7 +5,6 @@ const users = db.users;
 
 module.exports = {
     addUser: [
-        body("nickname").notEmpty().withMessage("Nickname is required"),
         body("nickname").custom((value) => {
             const user = users.find(user => user.nickname === value);
             if(user){
@@ -13,5 +12,4 @@ module.exports = {
             }
             return true;
         }),
-        body("password").notEmpty().withMessage("Password is required"),
     ],}
