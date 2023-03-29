@@ -24,7 +24,7 @@ module.exports = (sequelize,DataTypes)=>{
             type: DataTypes.INTEGER,
         },
         game_time:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.float,
         },
         iduser:{
             type: DataTypes.INTEGER,

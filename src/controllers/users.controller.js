@@ -90,7 +90,6 @@ const addUser = async (req,res)=>{
 
 
 export const methods = {
-    getAllUsers,
     getUsers,
     getUser,
     deleteUser,
