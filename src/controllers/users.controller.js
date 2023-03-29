@@ -1,5 +1,4 @@
 import {getConnection} from "../database/database";
-import { methods1 } from "./stats.controller";
 
 const getUsers = async (req,res)=>{
     try{
@@ -91,6 +90,7 @@ const addUser = async (req,res)=>{
 
 
 export const methods = {
+    getAllUsers,
     getUsers,
     getUser,
     deleteUser,
