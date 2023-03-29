@@ -10,21 +10,33 @@ module.exports = (sequelize,DataTypes)=>{
         },
         t_merge:{
             type: DataTypes.INTEGER,
+            unsigned:true,
+            zeroFill:true,
         },
         t_buy:{
             type: DataTypes.INTEGER,
+            zeroFill:true,
+            unsigned:true,
         },
         enemy_kills:{
             type: DataTypes.INTEGER,
+            zeroFill:true,
+            unsigned:true,
         },
         cur_spent:{
             type: DataTypes.INTEGER,
+            zeroFill:true,
+            unsigned:true,
         },
         high_score:{
             type: DataTypes.INTEGER,
+            zeroFill:true,
+            unsigned:true,
         },
         game_time:{
             type: DataTypes.float,
+            zeroFill:true,
+            unsigned:true,
         },
         iduser:{
             type: DataTypes.INTEGER,
