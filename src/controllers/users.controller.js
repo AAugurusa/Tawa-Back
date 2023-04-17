@@ -1,4 +1,7 @@
 import {getConnection} from "../database/database";
+import jwt from "jsonwebtoken";
+import config from "../config";
+import cookieParser from "cookie-parser";
 
 const getUsers = async (req,res)=>{
     try{
@@ -28,14 +31,17 @@ const login = async (req,res)=>{
     try{
         const { nickname, password } = req.body;
         const connection = await getConnection();
-        const result = await connection.query("SELECT * FROM users WHERE nickname = ? AND password = ?", [nickname, password]);
+        const result = await connection.query("SELECT * FROM users WHERE nickname = ? AND password = ?", [nickname, password]);    
         if(result.length == 0){
             res.status(501).json("Nickname or password incorrect");
-        }else{    
+        }else{
+            const token = jwt.sign({ userID: result.iduser }, config.JWT_SECRET, { expiresIn: "24h" });
+            res.cookie('authcookie', token, {httpOnly: true });
             res.status(201).json("Success");
         }
     } catch(error){
-        
+        res.status(502);//indica error en peticion al servidor por eso "500"
+        res.send(error.message);
     }
 };
 
@@ -56,11 +62,10 @@ const updateUser = async (req,res)=>{
     try{ 
         const { nickname1 } = req.params;
         const { nickname, password } = req.body;
-
         if(nickname == undefined || password == undefined || nickname1 == undefined){
             res.status(400).json({message: "Bad Request, please fill all fields."});//indica error en peticion al servidor por eso "400"
         }
-        
+         
         const newUser = { nickname, password };
         const connection = await getConnection();
         const result = await connection.query("UPDATE users SET ? WHERE nickname = ?" , [newUser, nickname1]);
@@ -87,7 +92,6 @@ const addUser = async (req,res)=>{
         res.status(502).json("Nickname already in use");//indica error en peticion al servidor por eso "500"
     }  
 };
-
 
 export const methods = {
     getUsers,
