@@ -46,6 +46,22 @@ const login = async (req,res)=>{
 };
 
 
+const logout = async (req,res)=>{
+    try{
+        const {nickname} = req.params;
+        const connection = await getConnection();
+        const result = connection.query("SELECT * FROM users WHERE nickname = ?", nickname);
+        if (result.length == 0){
+            res.status(501).json("Nickname not found");
+        }
+        res.clearCookie('authcookie');
+        res.status(201).json("Success");
+    } catch(error){
+        res.status(504);//indica error en peticion al servidor por eso "500"
+        res.send(error.message);
+    }
+};
+
 const deleteUser = async (req,res)=>{
     try{ 
         const { nickname } = req.params;
@@ -99,5 +115,6 @@ export const methods = {
     deleteUser,
     updateUser,
     login,
-    addUser
+    addUser,
+    logout
 };
