@@ -9,7 +9,7 @@ function createToken (req, res){
     check: true
   };
   const token = jwt.sign(payload, config.JWT_SECRET, {
-    expiresIn: "24h"  
+    expiresIn: "1h" // expires in 1 hour  
   });
   res.json({
     message: 'Token generated',
@@ -44,6 +44,7 @@ const verification = (req, res, next) => {
     return next();
   });
 }
+ 
 
 export const methods = {
     createToken,

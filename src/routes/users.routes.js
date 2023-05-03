@@ -10,6 +10,6 @@ router.delete("/:nickname", userscontroller.deleteUser);
 router.put("/:nickname1", tokencontroller.verification ,userscontroller.updateUser);
 router.post("/signUp", userscontroller.addUser);
 router.post("/login", userscontroller.login);
-router.get("/logout/:nickname", userscontroller.logout);
+router.get("/logout/:nickname", userscontroller.logout );
 
 export default router;
