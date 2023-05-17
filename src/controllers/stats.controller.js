@@ -3,10 +3,7 @@ import {getConnection} from "../database/database";
 const createStats = async (req,res)=>{
     try{
         const { nickname } = req.body; 
-
         console.log(req.body);
-        
-    
         const connection = await getConnection();
         const body = await connection.query("SELECT iduser FROM users WHERE nickname = ?", [nickname]);
         const result = await connection.query("INSERT INTO stats (iduser) VALUES (?)", [body[0].iduser]);
