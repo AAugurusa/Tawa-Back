@@ -37,9 +37,7 @@ const verification = async (req, res) => {
     const idusers = iduser.map((row) => row.iduser);
     const token = await connection.query("SELECT token FROM tokens WHERE iduser = ?", [idusers[0]]);
     const token1 = token.map((row) => row.token);
-    console.log(token1[0]);
     const decoded = jwt.verify(token1[0], config.JWT_SECRET);
-    console.log(decoded);
     if (decoded.iduser === idusers[0]){
       res.status(200).json("Success");
     } else {
