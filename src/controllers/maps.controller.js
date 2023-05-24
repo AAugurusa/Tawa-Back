@@ -14,13 +14,12 @@ const getMapsById = async (req,res)=>{
 
 const saveMap = async (req,res)=>{
     try{
-        const {arez_active, atenea_active, back_type, map_name, merge_active, path_type, poseidon_active, refund_active, zeus_active} = req.body;
+        const { arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name } = req.body;
         const connection = await getConnection();
-        const result = await connection.query("INSERT INTO maps (arez_active, atenea_active, back_type, map_name, merge_active, path_type, poseidon_active, refund_active, zeus_active) VALUES (?,?,?,?,?,?,?,?,?)", [arez_active, atenea_active, back_type, map_name, merge_active, path_type, poseidon_active, refund_active, zeus_active]);
-        console.log(result);
-        const idmap = result.insertId;
-        console.log(idmap);
-        res.status(201).json(idmap);
+        const result = await connection.query("INSERT INTO maps (arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name) VALUES (?,?,?,?,?,?,?,?,?)", [arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name]);
+        var idmap = result.insertId;
+        var idmaps = idmap.toString();
+        res.status(201).json(idmaps)
     }catch(error){
         console.log(error);
         res.status(500).json("Error");
