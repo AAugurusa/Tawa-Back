@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import usersRoutes from "./routes/users.routes";
 import statsRoutes from "./routes/stats.routes";
 import tokenRoutes from "./routes/token.routes";
+import mapsRoutes from "./routes/maps.routes";
 
 const app = express();// servir para crear un servidor web que maneje rutas/peticiones a traves de request http(get post put delete)
 
@@ -28,6 +29,7 @@ app.use(cookieParser());// para que el servidor entienda las cookies que le envi
 app.use("/api/users", usersRoutes);// usamos las rutas de users.routes.js
 app.use("/api/stats", statsRoutes);// usamos las rutas de stats.routes.js
 app.use("/api/token", tokenRoutes);// usamos las rutas de token.routes.js
+app.use("/api/maps", mapsRoutes);// usamos las rutas de maps.routes.js
 app.use(cookieParser());
 
 export default app; // exportamos el servidor para poder usarlo en index.js
