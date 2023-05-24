@@ -38,6 +38,18 @@ const deleteMap = async (req,res)=>{
     }
 }
 
+const deleteAllMaps = async (req,res)=>{
+    try{
+        const connection = await getConnection();
+        const result = await connection.query("DELETE FROM maps");
+        res.status(201).json("Success");
+    }catch(error){
+        console.log(error);
+        res.status(500).json("Error");
+    }
+}
+
+
 
 
 
@@ -47,5 +59,6 @@ const deleteMap = async (req,res)=>{
 export const methods = {
     getMapsById,
     saveMap,
+    deleteAllMaps,
     deleteMap
     }
