@@ -62,6 +62,39 @@ const getMapInfo = async (req,res)=>{
     }
 }
 
+const existsMap = async (req,res)=>{
+    try{
+        const { idmap } = req.params;
+        const connection = await getConnection();
+        const result = await connection.query("SELECT * FROM maps WHERE idmaps = ?", [idmap]);
+        console.log(result[0]);
+        if(result[0] == null){
+           return res.json(false);
+        }else{
+            return res.json(true);
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).json("Error");
+    }
+}
+
+const getMapNameById = async (req,res)=>{
+    try{
+        const { idmap } = req.params;
+        const connection = await getConnection();
+        const result = await connection.query("SELECT map_name FROM maps WHERE idmaps = ?", [idmap]);
+        const mapName = result[0].map_name; 
+        res.json(mapName);
+    }catch(error){
+        console.log(error);
+        res.status(500).json("Error");
+    }
+}
+
+
+
+
 
 
 
@@ -75,5 +108,7 @@ export const methods = {
     saveMap,
     deleteAllMaps,
     getMapInfo,
+    existsMap,
+    getMapNameById,
     deleteMap
     }
