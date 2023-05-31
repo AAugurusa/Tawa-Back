@@ -49,6 +49,20 @@ const deleteAllMaps = async (req,res)=>{
     }
 }
 
+const getMapInfo = async (req,res)=>{
+    try{
+        const { idmap } = req.params;
+        const connection = await getConnection();
+        const result = await connection.query("SELECT arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active FROM maps WHERE idmaps = ?", [idmap]);      
+        res.json(result[0]);
+        console.log(result[0]);
+    }catch(error){
+        console.log(error);
+        res.status(500).json("Error");
+    }
+}
+
+
 
 
 
@@ -60,5 +74,6 @@ export const methods = {
     getMapsById,
     saveMap,
     deleteAllMaps,
+    getMapInfo,
     deleteMap
     }

@@ -6,5 +6,6 @@ router.post("/saveMap", mapscontroller.saveMap);
 router.get("/getMap/:idmap", mapscontroller.getMapsById);
 router.delete("/deleteMap/:idmap", mapscontroller.deleteMap);
 router.delete("/deleteAllMaps", mapscontroller.deleteAllMaps);
+router.get("/getMapInfo/:idmap", mapscontroller.getMapInfo);
 
 export default router;
