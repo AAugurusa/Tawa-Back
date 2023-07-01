@@ -78,7 +78,94 @@ const updateUser = async (req,res)=>{
     }  
 };
 
-
+//Profile getters
+const getEnemyKills = async (req, res) => {
+    try {
+      const { nickname } = req.body;
+      const connection = await getConnection();
+      const result = await connection.query("SELECT enemy_kills FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",[nickname]);
+      res.json(result);
+    } catch (error) {
+      res.status(503);
+      res.send(error.message);
+    }
+  };
+  
+  const getGameTime = async (req, res) => {
+    try {
+      const { nickname } = req.body;
+      const connection = await getConnection();
+      const result = await connection.query(
+        "SELECT game_time FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
+        [nickname]
+      );
+      res.json(result);
+    } catch (error) {
+      res.status(503);
+      res.send(error.message);
+    }
+  };
+  
+  const getHighScore = async (req, res) => {
+    try {
+      const { nickname } = req.body;
+      const connection = await getConnection();
+      const result = await connection.query(
+        "SELECT high_score FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
+        [nickname]
+      );
+      res.json(result);
+    } catch (error) {
+      res.status(503);
+      res.send(error.message);
+    }
+  };
+  
+  const getTBuy = async (req, res) => {
+    try {
+      const { nickname } = req.body;
+      const connection = await getConnection();
+      const result = await connection.query(
+        "SELECT t_buy FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
+        [nickname]
+      );
+      res.json(result);
+    } catch (error) {
+      res.status(503);
+      res.send(error.message);
+    }
+  };
+  
+  const getTMerge = async (req, res) => {
+    try {
+      const { nickname } = req.body;
+      const connection = await getConnection();
+      const result = await connection.query(
+        "SELECT t_merge FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
+        [nickname]
+      );
+      res.json(result);
+    } catch (error) {
+      res.status(503);
+      res.send(error.message);
+    }
+  };
+  
+  const getCurSpent = async (req, res) => {
+    try {
+      const { nickname } = req.body;
+      const connection = await getConnection();
+      const result = await connection.query(
+        "SELECT cur_spent FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
+        [nickname]
+      );
+      res.json(result);
+    } catch (error) {
+      res.status(503);
+      res.send(error.message);
+    }
+  };
+  
 
 //Leaderboard getters
 const getTop5UsersInEnemyKills = async (req,res)=>{
@@ -166,6 +253,12 @@ export const methods = {
     login,
     deleteUser,
     updateUser,
+    getEnemyKills,
+    getGameTime,
+    getHighScore,
+    getTBuy,
+    getTMerge,
+    getCurSpent,
     getTop5UsersInEnemyKills,
     getTop5UsersInGameTime,
     getTop5UsersInHighScore,

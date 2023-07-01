@@ -18,4 +18,12 @@ router.get("/getLeaderboard_T_M", userscontroller.getTop5UsersInTMerge);
 router.get("/getLeaderboard_T_B", userscontroller.getTop5UsersInTBuy);
 router.get("/getLeaderboard_C_S", userscontroller.getTop5UsersInCurSpent);
 router.get("/getLeaderboard_H_S", userscontroller.getTop5UsersInHighScore);
+//Profile Stats
+router.get("/getProfileStats_E_K", userscontroller.getEnemyKills);
+router.get("/getProfileStats_G_T", userscontroller.getGameTime);
+router.get("/getProfileStats_T_M", userscontroller.getTMerge);
+router.get("/getProfileStats_T_B", userscontroller.getTBuy);
+router.get("/getProfileStats_C_S", userscontroller.getCurSpent);
+router.get("/getProfileStats_H_S", userscontroller.getHighScore);
+
 export default router;
