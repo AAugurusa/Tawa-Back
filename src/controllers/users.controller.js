@@ -1,3 +1,4 @@
+import e from "express";
 import {getConnection} from "../database/database";
 
 //User getters
@@ -81,10 +82,12 @@ const updateUser = async (req,res)=>{
 //Profile getters
 const getEnemyKills = async (req, res) => {
     try {
-      const { nickname } = req.body;
+      const { nickname } = req.params;
+      console.log(nickname);
       const connection = await getConnection();
       const result = await connection.query("SELECT enemy_kills FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",[nickname]);
-      res.json(result);
+      result[0].enemy_kills = parseInt(result[0].enemy_kills);
+      res.json(result[0]);
     } catch (error) {
       res.status(503);
       res.send(error.message);
