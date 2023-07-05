@@ -93,82 +93,76 @@ const getEnemyKills = async (req, res) => {
       res.send(error.message);
     }
   };
-  
-  const getGameTime = async (req, res) => {
+
+const getGameTime = async (req, res) => {
     try {
-      const { nickname } = req.body;
+      const { nickname } = req.params;
+      console.log(nickname);
       const connection = await getConnection();
-      const result = await connection.query(
-        "SELECT game_time FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
-        [nickname]
-      );
-      res.json(result);
+      const result = await connection.query("SELECT game_time FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",[nickname]);
+      result[0].game_time = parseInt(result[0].game_time);
+      res.json(result[0]);
     } catch (error) {
       res.status(503);
       res.send(error.message);
     }
   };
-  
-  const getHighScore = async (req, res) => {
+
+const getHighScore = async (req, res) => {
     try {
-      const { nickname } = req.body;
+      const { nickname } = req.params;
+      console.log(nickname);
       const connection = await getConnection();
-      const result = await connection.query(
-        "SELECT high_score FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
-        [nickname]
-      );
-      res.json(result);
+      const result = await connection.query("SELECT high_score FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",[nickname]);
+      result[0].high_score = parseInt(result[0].high_score);
+      res.json(result[0]);
     } catch (error) {
       res.status(503);
       res.send(error.message);
     }
   };
-  
-  const getTBuy = async (req, res) => {
+
+const getTBuy = async (req, res) => {
     try {
-      const { nickname } = req.body;
+      const { nickname } = req.params;
+      console.log(nickname);
       const connection = await getConnection();
-      const result = await connection.query(
-        "SELECT t_buy FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
-        [nickname]
-      );
-      res.json(result);
+      const result = await connection.query("SELECT t_buy FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",[nickname]);
+      result[0].t_buy = parseInt(result[0].t_buy);
+      res.json(result[0]);
     } catch (error) {
       res.status(503);
       res.send(error.message);
     }
   };
-  
-  const getTMerge = async (req, res) => {
+
+const getTMerge = async (req, res) => {
     try {
-      const { nickname } = req.body;
+      const { nickname } = req.params;
+      console.log(nickname);
       const connection = await getConnection();
-      const result = await connection.query(
-        "SELECT t_merge FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
-        [nickname]
-      );
-      res.json(result);
+      const result = await connection.query("SELECT t_merge FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",[nickname]);
+      result[0].t_merge = parseInt(result[0].t_merge);
+      res.json(result[0]);
     } catch (error) {
       res.status(503);
       res.send(error.message);
     }
   };
-  
-  const getCurSpent = async (req, res) => {
+
+const getCurSpent = async (req, res) => {
     try {
-      const { nickname } = req.body;
+      const { nickname } = req.params;
+      console.log(nickname);
       const connection = await getConnection();
-      const result = await connection.query(
-        "SELECT cur_spent FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",
-        [nickname]
-      );
-      res.json(result);
+      const result = await connection.query("SELECT cur_spent FROM stats WHERE iduser = (SELECT iduser FROM users WHERE nickname = ?)",[nickname]);
+      result[0].cur_spent = parseInt(result[0].cur_spent);
+      res.json(result[0]);
     } catch (error) {
       res.status(503);
       res.send(error.message);
     }
-  };
-  
+  };  
 
 //Leaderboard getters
 const getTop5UsersInEnemyKills = async (req,res)=>{
