@@ -1,16 +1,31 @@
 import {getConnection} from "../database/database";
 
-const getMapsById = async (req,res)=>{
+const getMapsById = async (req,res)=>{ //Get map by id and rate_median(average of all ratings of that map)
     try{
         const { idmap } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT * FROM maps WHERE idmap = ?", [idmap]);
-        res.json(result[0]);
-    }catch(error){
+        let result = await connection.query("SELECT * FROM maps WHERE idmaps = ?", [idmap]);
+        result = result[0];
+        const ratings = await connection.query("SELECT rate_value FROM ratings WHERE idmap = ?", [idmap]);
+        var rate_median = 0;
+        for(var i = 0; i < ratings.length; i++){
+            rate_median += ratings[i].rate_value;
+        }
+        rate_median = rate_median/ratings.length;
+        rate_median = parseInt(rate_median);
+        if(isNaN(rate_median)){
+            rate_median = 1;
+        }
+        result.name_map = result.map_name; 
+        result.rate_median = rate_median;
+        res.json({result});
+}
+    catch(error){
         console.log(error);
         res.status(500).json("Error");
     }
 }
+
 
 const saveMap = async (req,res)=>{
     try{
@@ -37,6 +52,30 @@ const deleteMap = async (req,res)=>{
         res.status(500).json("Error");
     }
 }
+
+const getRandomMap = async (req,res)=>{ //Get random map from database and return it {idmap, map_name, rate_median(average of all ratings of that map)}
+    try{
+        const connection = await getConnection();
+        const result = await connection.query("SELECT idmaps, map_name FROM maps ORDER BY RAND() LIMIT 1");
+        const idmap = result[0].idmaps;
+        const map_name = result[0].map_name;
+        const ratings = await connection.query("SELECT rate_value FROM ratings WHERE idmap = ?", [idmap]);
+        var rate_median = 0;
+        for(var i = 0; i < ratings.length; i++){
+            rate_median += ratings[i].rate_value;
+        }
+        rate_median = rate_median/ratings.length;
+        rate_median = parseInt(rate_median);
+        if(isNaN(rate_median)){
+            rate_median = 1;
+        }
+        res.json({idmap, map_name, rate_median});
+    }catch(error){
+        console.log(error);
+        res.status(500).json("Error");
+    }
+}
+
 
 const deleteAllMaps = async (req,res)=>{
     try{
@@ -99,5 +138,6 @@ export const methods = {
     getMapInfo,
     existsMap,
     getMapNameById,
+    getRandomMap,
     deleteMap
     }

@@ -13,31 +13,36 @@ const rateMap = async (req, res) => {
     res.json({message: "Map rated"});
     }
     catch(error){
-        console.log(error);
-        res.status(500).json("Error");
+        console.log(req.body);
+        res.status(500).json(req.body);
     }
 }
 
-const didUserRateMap = async (req, res) => {
+const didUserRateMap = async (req, res) => {//Check if user already rated map with json response 0 o 1 (false or true)
     try{
-        const {nickname} = req.body;
-        const {idmap} = req.params;
-        const connection = await getConnection();
-        const iduserfind = await connection.query("SELECT iduser FROM users WHERE nickname = ?", [nickname]);
-        const iduser = iduserfind[0];
-        const result = await connection.query("SELECT * FROM ratings WHERE idmap = ? AND iduser = ?", [idmap, iduser]);
-            if(result.length > 0){
-                res.json(1);
-            }
-            else{
-                res.json(0);
-            }
+    const {nickname} = req.body;
+    const {idmap} = req.params;
+    console.log(nickname, idmap);
+    const connection = await getConnection();
+    const iduserfind = await connection.query("SELECT iduser FROM users WHERE nickname = ?", [nickname]);
+    console.log(iduserfind[0].iduser);
+    const result = await connection.query("SELECT * FROM ratings WHERE idmap = ? AND iduser = ?", [idmap, iduserfind[0].iduser]);
+    if(result.length > 0){
+        res.json("bool: 1");
+    }
+    else{
+        res.json("bool: 0");
+    }
     }
     catch(error){
         console.log(error);
         res.status(500).json("Error");
     }
 }
+
+
+
+
 
 export const methods = {
     rateMap,

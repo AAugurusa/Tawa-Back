@@ -9,5 +9,6 @@ router.delete("/deleteAllMaps", mapscontroller.deleteAllMaps);
 router.get("/getMapInfo/:idmap", mapscontroller.getMapInfo);
 router.get("/existsMap/:idmap", mapscontroller.existsMap);
 router.get("/getMapNameById/:idmap", mapscontroller.getMapNameById);
+router.get("/getRandomMap", mapscontroller.getRandomMap);
 
 export default router;

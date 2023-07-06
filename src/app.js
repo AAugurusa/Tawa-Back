@@ -12,9 +12,6 @@ import ratingsRoutes from "./routes/ratings.routes";
 const app = express();// servir para crear un servidor web que maneje rutas/peticiones a traves de request http(get post put delete)
 
 
-
-
-
 // Settings
 app.set("port", 2606);// seteamos el puerto del servidor
 app.set("JWT_SECRET", config.JWT_SECRET);// seteamos la variable JWT_SECRET para poder usarla en el servidor
