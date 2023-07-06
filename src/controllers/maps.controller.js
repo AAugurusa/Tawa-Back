@@ -92,17 +92,6 @@ const getMapNameById = async (req,res)=>{
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 export const methods = {
     getMapsById,
     saveMap,

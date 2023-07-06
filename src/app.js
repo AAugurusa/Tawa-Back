@@ -7,6 +7,7 @@ import usersRoutes from "./routes/users.routes";
 import statsRoutes from "./routes/stats.routes";
 import tokenRoutes from "./routes/token.routes";
 import mapsRoutes from "./routes/maps.routes";
+import ratingsRoutes from "./routes/ratings.routes";
 
 const app = express();// servir para crear un servidor web que maneje rutas/peticiones a traves de request http(get post put delete)
 
@@ -28,5 +29,6 @@ app.use("/api/users", usersRoutes);// usamos las rutas de users.routes.js
 app.use("/api/stats", statsRoutes);// usamos las rutas de stats.routes.js
 app.use("/api/token", tokenRoutes);// usamos las rutas de token.routes.js
 app.use("/api/maps", mapsRoutes);// usamos las rutas de maps.routes.js
+app.use("/api/ratings", ratingsRoutes);// usamos las rutas de ratings.routes.js
 
 export default app; // exportamos el servidor para poder usarlo en index.js
