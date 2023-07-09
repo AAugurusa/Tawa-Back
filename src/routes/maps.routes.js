@@ -10,5 +10,6 @@ router.get("/getMapInfo/:idmap", mapscontroller.getMapInfo);
 router.get("/existsMap/:idmap", mapscontroller.existsMap);
 router.get("/getMapNameById/:idmap", mapscontroller.getMapNameById);
 router.get("/getRandomMap", mapscontroller.getRandomMap);
+router.get("/getMapIdByName/:map_name", mapscontroller.getMapIdByName);
 
 export default router;

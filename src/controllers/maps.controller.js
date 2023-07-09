@@ -29,9 +29,9 @@ const getMapsById = async (req,res)=>{ //Get map by id and rate_median(average o
 
 const saveMap = async (req,res)=>{
     try{
-        const { arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name } = req.body;
+        const { arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name,mision_easy,mision_med,mision_hard} = req.body;
         const connection = await getConnection();
-        const result = await connection.query("INSERT INTO maps (arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name) VALUES (?,?,?,?,?,?,?,?,?)", [arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name]);
+        const result = await connection.query("INSERT INTO maps (arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name,mision_easy,mision_med,mision_hard) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,map_name,mision_easy,mision_med,mision_hard]);
         var idmap = result.insertId;
         var idmaps = idmap.toString();
         res.status(201).json(idmaps)
@@ -92,7 +92,7 @@ const getMapInfo = async (req,res)=>{
     try{
         const { idmap } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active FROM maps WHERE idmaps = ?", [idmap]);      
+        const result = await connection.query("SELECT arez_active,atenea_active,back_type,merge_active,path_type,poseidon_active,refund_active,zeus_active,mision_easy,mision_med,mision_hard FROM maps WHERE idmaps = ?", [idmap]);      
         res.json(result[0]);
         console.log(result[0]);
     }catch(error){
@@ -131,6 +131,23 @@ const getMapNameById = async (req,res)=>{
     }
 }
 
+const getMapIdByName = async (req,res)=>{// get 4 map ids by name or a derviation of the name and send a json with results
+    try{
+        const { map_name } = req.params;
+        const connection = await getConnection();
+        const result = await connection.query("SELECT idmaps FROM maps WHERE map_name LIKE ?", ['%'+map_name+'%']);
+        var idmaps = [];
+        for(var i = 0; i < result.length; i++){
+            idmaps.push(result[i].idmaps);
+        }
+        res.json(idmaps);
+    }catch(error){
+        console.log(error);
+        res.status(500).json("Error");
+    }
+}
+
+
 export const methods = {
     getMapsById,
     saveMap,
@@ -139,5 +156,6 @@ export const methods = {
     existsMap,
     getMapNameById,
     getRandomMap,
+    getMapIdByName,
     deleteMap
     }

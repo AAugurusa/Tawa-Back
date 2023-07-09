@@ -13,6 +13,31 @@ const createCampaign = async (req,res)=>{// create a campaign and set the actual
     }
 };
 
+const getActualLevel = async (req,res)=>{// get the actual level of a campaign by id
+    try{
+        const { idcampaign } = req.params;
+        const connection = await getConnection();
+        const result = await connection.query("SELECT actual_level FROM campaigns WHERE idcampaigns = ?", [idcampaign]);
+        res.status(201).json(result[0]);
+    }catch(error){
+        console.log(error);
+        res.status(500).json("Error");
+    }
+};
+
+const sumActualLevel = async (req,res)=>{// sum 1 to the actual level of a campaign by id
+    try{
+        const { idcampaign } = req.params;
+        const connection = await getConnection();
+        const result = await connection.query("UPDATE campaigns SET actual_level = actual_level + 1 WHERE idcampaigns = ?", [idcampaign]);
+        res.status(201).json("Success");
+    }catch(error){
+        console.log(error);
+        res.status(500).json("Error");
+    }
+};
+
+
 const deleteCampaign = async (req,res)=>{// delete a campaign by id
     try{
         const { idcampaign } = req.params;
@@ -27,5 +52,7 @@ const deleteCampaign = async (req,res)=>{// delete a campaign by id
 
 export const methods = {
     createCampaign,
+    getActualLevel,
+    sumActualLevel,
     deleteCampaign
 };
