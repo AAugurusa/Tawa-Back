@@ -1,7 +1,5 @@
 import {getConnection} from "../database/database";
 
-
-//create save file for a user with the nickname passed as parameter
 const createSaveFile = async (req,res)=>{
     try{
         const { nickname } = req.body;

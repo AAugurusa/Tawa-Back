@@ -18,7 +18,7 @@ const rateMap = async (req, res) => {
     }
 }
 
-const didUserRateMap = async (req, res) => {//Check if user already rated map with json response 0 o 1 (false or true)
+const didUserRateMap = async (req, res) => {
     try{
     const {nickname} = req.body;
     const {idmap} = req.params;

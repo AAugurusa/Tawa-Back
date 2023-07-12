@@ -13,7 +13,7 @@ const createCampaign = async (req,res)=>{// create a campaign and set the actual
     }
 };
 
-const getActualLevel = async (req,res)=>{// get the actual level of a campaign by id
+const getActualLevel = async (req,res)=>{
     try{
         const { idcampaign } = req.params;
         const connection = await getConnection();
@@ -25,7 +25,7 @@ const getActualLevel = async (req,res)=>{// get the actual level of a campaign b
     }
 };
 
-const sumActualLevel = async (req,res)=>{// sum 1 to the actual level of a campaign by id
+const sumActualLevel = async (req,res)=>{
     try{
         const { idcampaign } = req.params;
         const connection = await getConnection();
@@ -38,7 +38,7 @@ const sumActualLevel = async (req,res)=>{// sum 1 to the actual level of a campa
 };
 
 
-const deleteCampaign = async (req,res)=>{// delete a campaign by id
+const deleteCampaign = async (req,res)=>{
     try{
         const { idcampaign } = req.params;
         const connection = await getConnection();

@@ -1,6 +1,6 @@
 import {getConnection} from "../database/database";
 
-const getMapsById = async (req,res)=>{ //Get map by id and rate_median(average of all ratings of that map)
+const getMapsById = async (req,res)=>{
     try{
         const { idmap } = req.params;
         const connection = await getConnection();
@@ -53,7 +53,7 @@ const deleteMap = async (req,res)=>{
     }
 }
 
-const getRandomMap = async (req,res)=>{ //Get random map from database and return it {idmap, map_name, rate_median(average of all ratings of that map)}
+const getRandomMap = async (req,res)=>{
     try{
         const connection = await getConnection();
         const result = await connection.query("SELECT idmaps, map_name FROM maps ORDER BY RAND() LIMIT 1");
@@ -131,7 +131,7 @@ const getMapNameById = async (req,res)=>{
     }
 }
 
-const getMapIdByName = async (req,res)=>{// get 4 map ids by name or a derviation of the name and send a json with results
+const getMapIdByName = async (req,res)=>{
     try{
         const { map_name } = req.params;
         const connection = await getConnection();
